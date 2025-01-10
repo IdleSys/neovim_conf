@@ -14,7 +14,13 @@ return {
       callback = function(event)
         local map = function(keys, func, desc, mode)
           mode = mode or 'n'
-          vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          if desc ~= nil then
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          else
+            vim.inspect(keys)
+            vim.inspect(func)
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' })
+          end
         end
 
         -- Jump to the definition of the word under your cursor.
@@ -22,14 +28,13 @@ return {
 
         -- Find references for the word under your cursor.
         map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-
+        map('<leader>wtf', vim.diagnostic.open_float, '[W]hat [T]he [F]uck')
         -- Jump to the implementation of the word under your cursor.
         map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-
         -- Jump to the type of the word under your cursor.
         -- TODO:Maybe change this keybind
         map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-
+        map('<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
         -- Fuzzy find all the symbols in your current document.
         -- TODO:Maybe change this keybind
         map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
@@ -96,6 +101,11 @@ return {
     local servers = {
       clangd = {},
       pyright = {},
+      omnisharp = {
+        cmd = { 'omnisharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+        root_dir = require('lspconfig.util').root_pattern('*.sln', '*.csproj'),
+      },
+      ts_ls = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -120,6 +130,7 @@ return {
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          vim.inspect(server)
           require('lspconfig')[server_name].setup(server)
         end,
       },

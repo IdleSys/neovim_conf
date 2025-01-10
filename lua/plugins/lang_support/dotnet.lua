@@ -56,6 +56,7 @@ return {
       },
       ---@param action "test" | "restore" | "build" | "run"
       terminal = function(path, action)
+        path = vim.fn.getcwd() .. '/' .. (path):gsub('./', '')
         local commands = {
           run = function()
             return 'dotnet run --project ' .. path
@@ -70,6 +71,7 @@ return {
             return 'dotnet build ' .. path
           end,
         }
+        print(vim.inspect(commands.run()))
         local command = commands[action]() .. '\r'
         vim.cmd 'vsplit'
         vim.cmd('term ' .. command)

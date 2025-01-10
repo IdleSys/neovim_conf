@@ -112,6 +112,8 @@ require('lazy').setup({
     },
   },
 })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+require('dap-cs').setup()
+--Configuration that needs to be done after the
+--Installations are complete
+-- local dap_configs = require 'setting.dap_configs'
+-- dap_configs.ConfigureDotnetDap()

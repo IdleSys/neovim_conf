@@ -48,7 +48,6 @@ return {
 
         ['<C-Space>'] = cmp.mapping.complete {},
 
-        -- Move in snippet fills
         ['<C-l>'] = cmp.mapping(function()
           if luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
@@ -70,6 +69,7 @@ return {
         { name = 'luasnip' },
         { name = 'path' },
         { name = 'html' },
+        { name = 'lsp-config' },
         { name = 'html-css', option = {} },
       },
     }
