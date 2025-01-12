@@ -113,7 +113,6 @@ require('lazy').setup({
   },
 })
 require('dap-cs').setup()
---Configuration that needs to be done after the
---Installations are complete
--- local dap_configs = require 'setting.dap_configs'
--- dap_configs.ConfigureDotnetDap()
+vim.keymap.set('n', '<leader>tt', function()
+  require('snacks').terminal.toggle(nil, { cwd = vim.loop.cwd() })
+end, { desc = 'Toggle Terminal' })
