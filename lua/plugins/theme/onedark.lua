@@ -5,6 +5,5 @@ return {
       style = 'deep',
     }
     require('onedark').load()
-    vim.cmd 'hi ColorColumn ctermbg=235 guibg=#3E3B2F'
   end,
 }
