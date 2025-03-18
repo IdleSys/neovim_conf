@@ -99,7 +99,10 @@ return {
     --  - settings (table): Override the default settings passed when initializing the server.
 
     local servers = {
-      clangd = {},
+      clangd = {
+        cmd = { 'clangd', '--compile-commands-dir=build' },
+      },
+
       pyright = {},
       omnisharp = {
         cmd = { 'omnisharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
@@ -116,6 +119,9 @@ return {
         },
       },
       gopls = {},
+      cssls = {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      },
     }
 
     require('mason').setup()
