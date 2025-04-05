@@ -32,7 +32,7 @@ return {
       python = { 'ruff', 'isort', 'black', 'pylint' },
       javascript = { 'prettierd', 'prettier', stop_after_first = true },
       cpp = { 'astyle' },
-      c = { 'astyle' },
+      c = { 'astyle', 'clang-format' },
     },
   },
 }
