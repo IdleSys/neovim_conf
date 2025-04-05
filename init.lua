@@ -134,3 +134,6 @@ require('dap-cs').setup()
 vim.keymap.set('n', '<leader>tt', function()
   require('snacks').terminal.toggle(nil, { cwd = vim.loop.cwd() })
 end, { desc = 'Toggle Terminal' })
+
+local dapConf = require 'setting.dap_configs'
+dapConf.ConfigureClangAndCppDap()
